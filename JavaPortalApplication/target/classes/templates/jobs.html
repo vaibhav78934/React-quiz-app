@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Jobs</title>
+</head>
+<body>
+
+<h1>Available Jobs</h1>
+
+<form th:action="@{/jobs}" method="get">
+    <input type="text" name="keyword" placeholder="Search by title">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+<div th:if="${#lists.isEmpty(jobs)}">
+    <p>No jobs found.</p>
+</div>
+
+<div th:each="job : ${jobs}">
+    <h3 th:text="${job.title}"></h3>
+    <p><b>Company:</b> <span th:text="${job.company}"></span></p>
+    <p><b>Location:</b> <span th:text="${job.location}"></span></p>
+    <p><b>Salary:</b> ₹<span th:text="${job.salary}"></span></p>
+    <p th:text="${job.description}"></p>
+
+    <a th:href="@{'/apply/' + ${job.id}}">Apply</a>
+    <hr>
+</div>
+
+</body>
+</html>
